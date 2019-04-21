@@ -11,14 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/','PrefController@index');
+
+Route::post('/search','PrefController@search');
+
 
 Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
