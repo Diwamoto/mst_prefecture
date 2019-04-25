@@ -16,11 +16,15 @@
                 </div>
             </form>
         </div>
-        @if (isset($request))
-        <div class="panel-body">
-            検索結果
-        </div>    
-        @endif
+        
     </div>
+    @if (isset($arr_request))
+    検索結果
+    <div class="panel panel-default">
+        <div class="panel-body">
+            {{var_dump($arr_request)}}
+        </div>
+    </div>
+    @endif
 </div> 
 @endsection
