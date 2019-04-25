@@ -11,8 +11,6 @@
 |
 */
 
-Route::redirect('/search', '/', 301);
-
 Route::get('/','PrefController@index');
 
 Route::post('/search','PrefController@search');
@@ -20,5 +18,3 @@ Route::post('/search','PrefController@search');
 Route::get('/welcome', function () {
     return view('welcome');
 });
-
-
