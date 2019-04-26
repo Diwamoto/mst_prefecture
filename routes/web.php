@@ -13,8 +13,9 @@
 
 Route::get('/','PrefController@index');
 
-Route::post('/search','PrefController@search');
+Route::get('/update','PrefController@update');
+Route::get('/delete','PrefController@delete');
+Route::get('/add','PrefController@add');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
+
+Route::get('/search','PrefController@search');

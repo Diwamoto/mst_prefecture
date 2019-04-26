@@ -1,50 +1,60 @@
 @extends('common.layout')
-@section('title','地域マスタ一覧')
+@section('title','検索結果')
 @section('content')
 <div class="container">
     <h4>地域マスタ一覧</h4>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <form action="{{action('PrefController@search')}}" method="POST" id="search">
-            {{ csrf_field() }}
+    <div class="card">
+        <div class="card-body">
+            <form action="{{action('PrefController@search')}}" method="GET" id="search">
                 <div class="form-row">
-                    <div class="col-lg-1">地域コード</div>
-                    <div class="col-lg-2"><input type="text" name="prefecture_cd" class="form-control input-sm" /></div>
+                    <div class="col-lg-2">地域コード</div>
+                    <div class="col-lg-2"><input type="text" name="prefecture_cd" class="form-control input-sm" value="{{$request->input('prefecture_cd','')}}"/></div>
                     <div class="col-lg-1">地域名</div>
-                    <div class="col-lg-5"><input type="text" name="prefecture_name"  class="form-control input-sm" /></div>
-                    <div class="col-lg-3"><button type="submit" class="btn btn-primary btn-sm" form="search">検索</button></div>
+                    <div class="col-lg-5"><input type="text" name="prefecture_name"  class="form-control input-sm" value="{{$request->input('prefecture_name','')}}"/></div>
+                    <div class="col-lg-1"><button type="submit" class="btn btn-primary btn-sm" form="search">検索</button></div>
                 </div>
             </form>
         </div>
     </div>
-    <p>検索結果</p>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <td>地域コード</td>
-                        <td>地域名</td>
-                        <td>更新日時</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                @foreach ($data as $value)
+    <p>全{{count($db)}}中{{$data->firstItem()}}~{{$data->lastItem()}}件表示中</p>
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <td>地域コード</td>
+                <td>地域名</td>
+                <td>更新日時</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($data as $value)
                 <tr>
                     <td>{{ $value->prefecture_cd }}</td>
                     <td>{{ $value->prefecture_name }}</td>
                     <td>{{ $value->insert_date }}</td>
-                    <td><button class="btn btn-default btn-xs">追加</button></td>
-                    <td><button class="btn btn-default btn-xs">削除</button></td>
+                    <td><button class="btn btn-info btn-xs" onclick="location.href='/update'">更新</button></td>
+                    <td><button class="btn btn-danger btn-xs" onclick="location.href='/delete'">削除</button></td>
                 </tr>
-                @endforeach
-                </tbody>
-            </table>
-            {{ $data->links('pagination::bootstrap-4') }}
+            @endforeach
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-lg-12">
+            @if ($data->hasPages())
+                <ul class="pagination pagination-success" role="navigation">
+                    {{-- Previous Page Link --}}
+                    @if (!$data->onFirstPage())
+                        <a class="btn btn-success previous" href="{{ $data->previousPageUrl() }}&{{http_build_query($query)}}" rel="prev" aria-label="@lang('pagination.previous')">前のページ</a>
+                    @endif
+                    {{-- Next Page Link --}}
+                    @if ($data->hasMorePages())
+                        <a class="btn btn-success next" href="{{ $data->nextPageUrl() }}&{{http_build_query($query)}}" rel="next" aria-label="@lang('pagination.next')">次のページ</a>
+                    @endif
+                </ul>
+            @endif
+            <button class="btn btn-primary float-right" onclick="location.href='/add'">追加</button>
         </div>
     </div>
-</div> 
+</div>
 @endsection
