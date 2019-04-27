@@ -14,8 +14,10 @@
 Route::get('/','PrefController@index');
 
 Route::get('/update','PrefController@update');
-Route::get('/delete','PrefController@delete');
-Route::get('/add','PrefController@add');
+Route::post('/delete','PrefController@confirm');
 
+Route::get('/edit','PrefController@edit');
+Route::post('/confirm','PrefController@confirm');
+Route::post('/complete','PrefController@complete');
 
 Route::get('/search','PrefController@search');

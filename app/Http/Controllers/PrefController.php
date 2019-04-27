@@ -16,12 +16,36 @@ class PrefController extends Controller
         return "kousin";
     }
 
-    public function delete(Request $request){
-        return "delete";
+    public function edit(Request $request){
+        return view('edit');
     }
 
-    public function add(Request $request){
-        return "adding";
+    public function confirm(Request $request){
+        $arr_request=$request->input();
+        return view('confirm',compact('arr_request'));
+    }
+
+    public function complete(Request $request){
+        $arr_request=$request->input();
+        if($arr_request['process'] == 'add'){
+            if(Pref::insert([
+                'prefecture_cd' => $arr_request['prefecture_cd'],
+                'prefecture_name' => $arr_request['prefecture_name'],
+                'insert_date' => now(),
+                'insert_cd' => 1
+            ])){
+                return view('complete',compact('arr_request'));
+            }else{
+                return 'can’t insert!';
+            }
+        }else{
+            if(Pref::where('prefecture_cd','=',$arr_request['prefecture_cd'])->delete() == 1){
+                return view('complete',compact('arr_request'));
+            }else{
+                return 'can’t delete!';
+            }
+        }
+        
     }
 
     public function search(Request $request){
