@@ -11,14 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/','PrefController@index');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
+Route::get('/update','PrefController@update');
+Route::post('/delete','PrefController@confirm');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/edit','PrefController@edit');
+Route::post('/confirm','PrefController@confirm');
+Route::post('/complete','PrefController@complete');
+
+Route::get('/search','PrefController@search');
