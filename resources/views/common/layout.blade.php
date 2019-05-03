@@ -20,8 +20,9 @@
 <body>
  
   <div class="container"><!-- ※１. 固定幅 -->
+  <div class="container">
   @yield('content')
-  </div>
+  </div></div>
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><!-- Scripts（Jquery） -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script><!-- Scripts（bootstrapのjavascript） -->
