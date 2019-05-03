@@ -12,12 +12,12 @@
 */
 
 Route::get('/','PrefController@index');
+Route::get('/search','PrefController@search');
 
-Route::get('/update','PrefController@update');
+Route::post('/update','PrefController@edit');
 Route::post('/delete','PrefController@confirm');
 
-Route::get('/edit','PrefController@edit');
+Route::match(['get','post'],'/edit','PrefController@edit');
 Route::post('/confirm','PrefController@confirm');
 Route::post('/complete','PrefController@complete');
 
-Route::get('/search','PrefController@search');
